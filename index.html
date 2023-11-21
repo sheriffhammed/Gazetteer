@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	
+	<title>GAZETTEER PROJECT</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+	
+	<link rel="stylesheet"  type="text/css" href="./libs/css/Control.FullScreen.css" />
+	<link rel="stylesheet" type="text/css" href="libs/css/style.css" />
+	
+	<link rel="stylesheet" type="text/css" href="Leaflet.ExtraMarkers-master/src/assets/css/leaflet.extra-markers.css" />
+	<link rel="stylesheet" type="text/css" href="Leaflet.ExtraMarkers-master/dist/css/leaflet.extra-markers.min.css" />
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />
+  	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
+	
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+	<script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	  
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+	
+
+	
+</head>
+<body>
+	
+<div id='map'>
+
+	<div class="leaflet-control cordinate"></div>
+	
+	<select id="country" name="country">
+				
+	</select>
+	
+	<!-- <button data-toggle="modal" data-target="#myModal2"  id="countryInfo" name="countryInfo">
+		Country Info
+	</button> -->
+	
+	<nav id="overlay">
+		<ul>
+		 <li data-toggle="modal"  data-target="#myModal2" id="countryInfo" name="countryInfo"><a href="#">
+		  <i class="fa fa-flag"></i>
+		  <span>Country</span></a>
+		 </li>
+		 <li class="weatherDetail" data-toggle="modal" data-target="#weather_forecast">
+			 <a href="#">
+		  		<i class="fa fa-sun"></i>
+		  		<span>WEATHER</span>
+			</a>
+		 </li>
+		 <li class="exRate" data-toggle="modal" data-target="#exchange_rate"><a href="#">
+		  <i class="fa fa-dollar"></i>
+		  <span>CURRENCY</span></a>
+		</li>
+		 <li data-target="#myModal" data-toggle="modal" id="wikipedia" name="wikipedia">
+			<a href="#">
+				<i class="fab fa-wikipedia-w"></i>
+				<span>WIKIPEDIA</span>
+			</a>
+		</li>
+		<li data-target="#time_zone" data-toggle="modal" id="timezone" name="timezone">
+			<a href="#">
+				<i class="far fa-clock"></i>
+				<span>TIMEZONE</span>
+			</a>
+		</li>
+		<li data-target="#near_by" data-toggle="modal" id="nearby" name="nearby">
+			<a href="#">
+				<i class="far fa-snowflake"></i>
+				<span>NEARBY</span>
+			</a>
+		</li>
+		</ul>
+	  </nav>
+  
+		  <!-- Modal Wikipedia Info-->
+		  <div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog modal-lg">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				  <h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body">
+					<div id="wikipediaModal"></div><br><br>
+					<button type="button" class="btn btn-info" data-target="#fullwikipedia" data-toggle="modal" id="wikipediabutton" name="wikipediabutton">
+						Full Wikipedia Article</button>
+					
+				</div>
+				<div class="modal-footer">
+					
+				  </div>
+				<div class="modal-footer">
+					
+				  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		  <!-- Full Wikipedia Article Modal-->
+			<div class="modal fade" id="fullwikipedia" role="dialog">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Full Wikipedia Article</h4>
+					</div>
+					<div class="modal-body">
+						<div id="fullWikipediaModal">
+							
+	
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+					</div>
+				</div>
+				</div>
+			<!-- Modal Country Info-->
+			<div class="modal fade" id="myModal2" role="dialog">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Country Info</h4>
+				</div>
+				<div class="modal-body">
+					<div id="countryInfoModal">
+						
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+				</div>
+			</div>
+			</div>
+			<!-- Modal Exchange Rate-->
+			<div class="modal fade" id="exchange_rate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h5 class="modal-title" id="exampleModalLongTitle">Currency Exchange Rate</h5>
+					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					  </button>
+					</div>
+					<div class="modal-body">
+						<table class="table" >
+							<thead class="rateTableHeader">					
+							</thead>
+							
+							<tbody class="rateTableData">
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>					  
+					</div>
+				  </div>
+				</div>
+			</div>
+			<!-- Modal Weather Forecast-->
+			<div class="modal fade" id="weather_forecast" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Daily Weather Forecast</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<table class="table" >
+							<thead class="modal-tableHeader">					
+							</thead>
+							
+							<tbody class="modal-tableData">
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>					  
+					</div>
+					</div>
+				</div>
+			</div>
+			<!-- Time Zone Modal-->
+			<div class="modal fade" id="time_zone" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Time Zone</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="timeZoneModal">
+							
+	
+						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>					  
+					</div>
+					</div>
+				</div>
+				</div>
+			</div>
+
+			<!-- Near By Modal-->
+			<div class="modal fade" id="near_by" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Near By Place</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="nearByModal">
+							
+	
+						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>					  
+					</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			
+</div>
+
+<script  type="application/javascript" src="./libs/js/Control.FullScreen.js" ></script>
+<script type="application/javascript" src="./libs/js/jquery-2.2.3.min.js"></script>
+<script type="module" src="./libs/js/script.js"></script>
+<script src="Leaflet.ExtraMarkers-master/dist/js/leaflet.extra-markers.js"></script>
+<script src="Leaflet.ExtraMarkers-master/dist/js/leaflet.extra-markers.min.js"></script>
+<script type="module" src="Leaflet.ExtraMarkers-master/src/assets/js/leaflet.extra-markers.js"></script>
+</body>
+</html>
